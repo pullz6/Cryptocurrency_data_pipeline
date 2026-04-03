@@ -16,5 +16,22 @@ r = requests.get(url)
 data = r.json()
 print(data.keys())
 df_meta = pd.DataFrame(data['Meta Data'], index=[0])
-df = pd.DataFrame(data['Time Series (Daily)'])
-print(df.head())
+df = pd.DataFrame(data['Time Series (Daily)']).T.reset_index()
+df = df.rename({
+    'index' : 'date',
+    '1. open':'open',
+    '2. high':'high',
+    '3. low':'low',
+    '4. close':'close',
+    '5. volume':'volume',
+},axis=1)
+df['company'] = pd.DataFrame(data['Meta Data'],index=[0])['2. Symbol'][0]
+df = df.astype({
+    'open':'float',
+    'high':'float',
+    'low':'float',
+    'close':'float',
+    'volume':'float'
+})
+df['date']= pd.to_datetime(df['date'])
+print(df.info())
