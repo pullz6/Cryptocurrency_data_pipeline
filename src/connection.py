@@ -1,0 +1,12 @@
+from sqlalchemy import create_engine, Column, Integer, String
+from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy import text
+from sqlalchemy.orm import sessionmaker
+import psycopg2
+
+# Define the database engine
+engine = create_engine('postgresql://postgres:admin@localhost:5432/stocks', echo=True)
+
+with engine.connect() as conn:
+    result = conn.execute(text("select 'hello world'"))
+    print(result.all())
