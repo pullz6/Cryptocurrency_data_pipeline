@@ -5,8 +5,8 @@ from sqlalchemy.orm import sessionmaker
 import psycopg2
 
 # Define the database engine
-engine = create_engine('postgresql://postgres:admin@localhost:5432/stocks', echo=True)
-
-with engine.connect() as conn:
-    result = conn.execute(text("select 'hello world'"))
-    print(result.all())
+def set_up_connection(): 
+        engine = create_engine('postgresql://postgres:admin@localhost:5432/stocks', echo=True)
+        with engine.connect() as conn:
+            result = conn.execute(text("select 'hello world'"))
+            print(result.all())
