@@ -5,18 +5,7 @@ from sqlalchemy.orm import sessionmaker
 from connection import set_up_connection 
 import psycopg2
 
-#Setting up the connection 
-engine = create_engine('postgresql://postgres:admin@localhost:5432/stocks', echo=True)
-with engine.connect() as conn:
-        result = conn.execute(text("select 'hello world'"))
-        print(result.all())
-            
-# session instance is used to communicate with the database
-Session = sessionmaker(bind=engine)
-session = Session()
-
 Base = declarative_base()
-
 
 class stock(Base): 
     __tablenamne__ = 'stocks'
@@ -26,5 +15,18 @@ class stock(Base):
     low = Column(Integer) 
     close = Column(Integer) 
     volume = Column(Integer)
+    
+#Setting up the connection 
+engine = create_engine('postgresql://postgres:admin@localhost:5432/stocks', echo=True)
+with engine.connect() as conn:
+    # session instance is used to communicate with the database
+    Session = sessionmaker(bind=engine)
+    session = Session()
+
+            
+
+
+
+
     
     

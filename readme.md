@@ -1,0 +1,1 @@
+Inspired by https://elibenjamin.medium.com/data-engineering-automatically-update-postgresql-database-from-api-4f07da1df2a9
