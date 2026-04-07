@@ -15,7 +15,6 @@ def importing_to_df():
     url = 'https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=IBM&apikey='+api_key
     r = requests.get(url)
     data = r.json()
-    print(data.keys())
     df_meta = pd.DataFrame(data['Meta Data'], index=[0])
     df = pd.DataFrame(data['Time Series (Daily)']).T.reset_index()
     df = df.rename({

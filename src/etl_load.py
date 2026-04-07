@@ -1,4 +1,4 @@
-from sqlalchemy import create_engine, Column, Integer, String, TIMESTAMP, REAL
+from sqlalchemy import create_engine, Column, Integer, String, TIMESTAMP, REAL, CHAR
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import text
 from sqlalchemy.orm import sessionmaker
@@ -19,6 +19,7 @@ class stock(Base):
     low = Column(REAL) 
     close = Column(REAL) 
     volume = Column(Integer)
+    company = Column(CHAR)
     
 #Setting up the connection 
 engine = create_engine('postgresql://postgres:admin@localhost:5432/stocks', echo=True)
@@ -34,7 +35,8 @@ for _, row in df.iterrows():
          high=row['high'],
          low=row['low'],
          close=row['close'],
-         volume=row['volume']
+         volume=row['volume'],
+         company=row['company']
      )
     session.add(stock_record)
 session.commit()
