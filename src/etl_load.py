@@ -19,7 +19,7 @@ class stock(Base):
     low = Column(REAL) 
     close = Column(REAL) 
     volume = Column(Integer)
-    company = Column(CHAR)
+    company = Column(String)
     
 #Setting up the connection 
 engine = create_engine('postgresql://postgres:admin@localhost:5432/stocks', echo=True)
@@ -40,6 +40,3 @@ for _, row in df.iterrows():
      )
     session.add(stock_record)
 session.commit()
-
-    
-    
