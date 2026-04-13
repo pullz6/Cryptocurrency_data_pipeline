@@ -2,6 +2,8 @@ from sqlalchemy import create_engine, Column, Integer, String, TIMESTAMP, REAL, 
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import text
 from sqlalchemy.orm import sessionmaker
+from sqlalchemy import select
+from sqlalchemy import func
 from connection import set_up_connection 
 import psycopg2
 from data_import import importing_to_df
@@ -26,7 +28,11 @@ engine = create_engine('postgresql://postgres:admin@localhost:5432/stocks', echo
 Base.metadata.create_all(engine)
 Session = sessionmaker(bind=engine)
 session = Session()
-            
+
+max_date = session.query(func.max(stock.date)).scalar()
+#print(f"Most recent date: {max_date}")
+
+df = df[df['date'] > str(max_date)]
 
 for _, row in df.iterrows():
     stock_record = stock(
@@ -39,4 +45,4 @@ for _, row in df.iterrows():
          company=row['company']
      )
     session.add(stock_record)
-session.commit()
+session.commit() 
