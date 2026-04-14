@@ -9,8 +9,9 @@ import psycopg2
 from data_import import importing_to_df
 import logging
 
-logger = logging.getLogger(__name__)
+logging.basicConfig(filename='logs/example.log', encoding='utf-8', level=logging.DEBUG)
 
+logger = logging.getLogger(__name__)
 logger.info("Getting today's data")
 df = importing_to_df()
 
