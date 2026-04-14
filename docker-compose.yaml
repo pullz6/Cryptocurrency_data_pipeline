@@ -2,4 +2,4 @@ services:
 
 container: 
   build : .
-  
+  container_name : stocks_pipeline
